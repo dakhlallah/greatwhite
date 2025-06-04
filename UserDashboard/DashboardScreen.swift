@@ -1,5 +1,5 @@
 //
-//  Home : Dashboard Screen.swift
+//  DashboardScreen.swift
 //  trevio final
 //
 //  Created by DAKHLALLAH Oussama on 11/05/2025.
@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-struct Home___Dashboard_Screen: View {
+struct DashboardScreen: View {
     let currentPlan = "France 5GB / 30 days"
     let location = "Paris, France"
     let remainingData = "2.4 GB remaining"
@@ -90,5 +90,5 @@ struct DashboardCard: View {
 }
 
 #Preview {
-    Home___Dashboard_Screen()
+    DashboardScreen()
 }

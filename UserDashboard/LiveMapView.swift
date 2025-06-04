@@ -1,5 +1,5 @@
 //
-//  Live Map View.swift
+//  LiveMapView.swift
 //  trevio final
 //
 //  Created by DAKHLALLAH Oussama on 11/05/2025.
@@ -33,7 +33,7 @@ let sampleCountries: [CountryData] = [
     CountryData(name: "Australia", coordinate: .init(latitude: -33.8688, longitude: 151.2093), pricePerGB: Double.random(in: 2...5), remainingGB: Double.random(in: 0.5...10))
 ]
 
-struct Live_Map_View: View {
+struct LiveMapView: View {
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522), // Paris
         span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
@@ -90,5 +90,5 @@ struct Live_Map_View: View {
 }
 
 #Preview {
-    Live_Map_View()
+    LiveMapView()
 }

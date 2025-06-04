@@ -1,5 +1,5 @@
 //
-//  Usage Tracke.swift
+//  UsageTracker.swift
 //  trevio final
 //
 //  Created by DAKHLALLAH Oussama on 11/05/2025.
@@ -21,7 +21,7 @@ struct CountryUsage: Identifiable {
     let dataRemaining: Double // in GB
 }
 
-struct Usage_Tracke: View {
+struct UsageTracker: View {
     let usageData: [DataUsageEntry] = [
         DataUsageEntry(date: .now.addingTimeInterval(-5*86400), dataUsed: 450),
         DataUsageEntry(date: .now.addingTimeInterval(-4*86400), dataUsed: 320),
@@ -117,5 +117,5 @@ struct Usage_Tracke: View {
 }
 
 #Preview {
-    Usage_Tracke()
+    UsageTracker()
 }
