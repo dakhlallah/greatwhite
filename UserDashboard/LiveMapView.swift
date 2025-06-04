@@ -33,12 +33,15 @@ let sampleCountries: [CountryData] = [
     CountryData(name: "Australia", coordinate: .init(latitude: -33.8688, longitude: 151.2093), pricePerGB: Double.random(in: 2...5), remainingGB: Double.random(in: 0.5...10))
 ]
 
+let initialRegion = MKCoordinateRegion(
+    center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522), // Paris
+    span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
+)
+
 struct LiveMapView: View {
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522), // Paris
-        span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
-    )
+    @State private var cameraPosition: MapCameraPosition = .region(initialRegion)
     @State private var searchText = ""
+    @State private var is3DEnabled = false
 
     var filteredCountries: [CountryData] {
         if searchText.isEmpty {
@@ -65,7 +68,7 @@ struct LiveMapView: View {
 
                 Spacer()
             }
-            Map(coordinateRegion: $region, annotationItems: filteredCountries) { country in
+            Map(position: $cameraPosition, annotationItems: filteredCountries) { country in
                 MapAnnotation(coordinate: country.coordinate) {
                     VStack(spacing: 4) {
                         Text(country.name)
@@ -84,7 +87,38 @@ struct LiveMapView: View {
                     .cornerRadius(8)
                 }
             }
+            .mapStyle(is3DEnabled ? .standard(elevation: .realistic) : .standard)
             .edgesIgnoringSafeArea(.all)
+
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: toggle3D) {
+                        Image(systemName: is3DEnabled ? "cube.fill" : "cube")
+                            .padding(10)
+                            .foregroundColor(.white)
+                            .background(Color.black.opacity(0.6))
+                            .clipShape(Circle())
+                    }
+                    .padding()
+                }
+                Spacer()
+            }
+        }
+    }
+
+    private func toggle3D() {
+        withAnimation {
+            if is3DEnabled {
+                cameraPosition = .region(initialRegion)
+            } else {
+                let camera = MapCamera(centerCoordinate: initialRegion.center,
+                                        distance: 5_000_000,
+                                        heading: 0,
+                                        pitch: 60)
+                cameraPosition = .camera(camera)
+            }
+            is3DEnabled.toggle()
         }
     }
 }
